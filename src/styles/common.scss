@@ -1,0 +1,15 @@
+body {
+  height: 100vh;
+  transform: translate(0);
+}
+/*滚动条凹槽的颜色，还可以设置边框属性 */
+*::-webkit-scrollbar-track-piece {
+  background-color:#f8f8f8;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+/*滚动条*/
+*::-webkit-scrollbar {
+  width: 0;
+}

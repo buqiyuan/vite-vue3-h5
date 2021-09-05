@@ -1,0 +1,127 @@
+@use "sass:meta";
+
+@function rpx($value) {
+  @return $value * 1rpx;
+}
+
+/**
+* 点击文本状态
+ */
+@mixin click-text-active($color: rgba(0, 0, 0, 0.2)) {
+  &:active {
+    color: $color;
+    transition: color 0.01s;
+  }
+}
+
+/**
+* @param $color
+* 点击背景状态
+ */
+@mixin click-bg-active($color: rgba(0, 0, 0, 0.06)) {
+  &:active {
+    background-color: $color;
+    transition: background-color 0.01s;
+  }
+}
+
+/**
+* @param $rpx
+* 将元素设置成圆形
+ */
+@mixin el-to-circle($rpx) {
+  width: rpx($rpx);
+  height: rpx($rpx);
+  border-radius: rpx($rpx);
+}
+
+/**
+* @description 绝对定位居中显示
+ */
+@mixin position-center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/**
+* @description flex布局垂直水平居中
+ */
+@mixin flex-center($args...) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @each $key, $value in meta.keywords($args) {
+    & {
+      #{$key}: $value;
+    }
+  }
+}
+
+/**
+* @description 多行文本省略号
+ */
+@mixin text-ellipsis($line: 1) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+  @if ($line == 1) {
+    word-break: break-all;
+    text-overflow: ellipsis;
+  }
+}
+/**
+* @description 三角气泡框
+ */
+@mixin popover($placement, $args...) {
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: #fff;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+  }
+
+  @each $key, $value in meta.keywords($args) {
+    &::after {
+      #{$key}: $value;
+    }
+  }
+
+  &::after {
+    @if ($placement == 'top') {
+      border-bottom-width: 0;
+      border-top-color: currentColor;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+    }
+    @if ($placement == 'bottom') {
+      border-top-width: 0;
+      border-bottom-color: currentColor;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+    @if ($placement == 'left') {
+      border-right-width: 0;
+      border-left-color: currentColor;
+      right: 0;
+      top: 50%;
+      transform: translate(100%, -50%);
+    }
+    @if ($placement == 'right') {
+      border-left-width: 0;
+      border-right-color: currentColor;
+      left: 0;
+      top: 50%;
+      transform: translate(-100%, -50%);
+    }
+  }
+}
