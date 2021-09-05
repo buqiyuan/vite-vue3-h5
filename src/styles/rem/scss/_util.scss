@@ -2,12 +2,16 @@
 
 /* 移动端页面设计稿宽度 */
 $design-width: 750;
+
 /* 移动端页面设计稿dpr基准值 */
 $design-dpr: 2;
+
 /* 将移动端页面分为10块 */
 $blocks: 10;
+
 /* 缩放所支持的设备最小宽度 */
 $min-device-width: 320px;
+
 /* 缩放所支持的设备最大宽度 */
 $max-device-width: 540px;
 
@@ -47,9 +51,9 @@ $max-device-width: 540px;
 
 /* 设置容器拉伸的最小宽度 */
 @mixin container-min-width() {
+    min-width: $min-device-width;
     margin-right: auto;
     margin-left: auto;
-    min-width: $min-device-width;
 
     @media (-webkit-device-pixel-ratio: 2) {
         min-width: $min-device-width * 2;
@@ -62,9 +66,9 @@ $max-device-width: 540px;
 
 /* 设置容器拉伸的最大宽度 */
 @mixin container-max-width() {
+    max-width: $max-device-width;
     margin-right: auto;
     margin-left: auto;
-    max-width: $max-device-width;
 
     @media (-webkit-device-pixel-ratio: 2) {
         max-width: $max-device-width * 2;

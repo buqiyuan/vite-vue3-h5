@@ -47,12 +47,14 @@
             @if $ratio == 1 or is-percentage($item) {
                 border-#{$corner}-radius: $item;
             }
+
             /* 否则翻$ratio倍 */
             @else {
                 border-#{$corner}-radius: $item * $ratio;
             }
         }
     }
+
     /* 单个值 */
     @else {
         @if $ratio == 1 or is-percentage($radius) {
@@ -93,7 +95,7 @@
                 @for $i from 1 through length($direction) {
                     $item: nth($direction, $i);
 
-                    border-#{$item}: getBorderItemValue($size, $i) getBorderItemValue($style, $i) getBorderItemValue($color, $i);
+                    border-#{$item}: getborderitemvalue($size, $i) getborderitemvalue($style, $i) getborderitemvalue($color, $i);
                 }
             }
         }
@@ -138,19 +140,7 @@
 ) {
     position: $position;
 
-    &:after {
-        content: "";
-        position: absolute;
-        #{$direction}: 0;
-
-        pointer-events: none;
-        background-color: $color;
-
-        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-            -webkit-transform-origin: 0 0;
-                    transform-origin: 0 0;
-        }
-
+    &::after {
         /* 上下 */
         @if ($direction == top or $direction == bottom) {
             left: 0;
@@ -184,6 +174,18 @@
                         transform: scaleX(.333333333333);
             }
         }
+
+        position: absolute;
+        pointer-events: none;
+        background-color: $color;
+        content: "";
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+            -webkit-transform-origin: 0 0;
+                    transform-origin: 0 0;
+        }
+
+        #{$direction}: 0;
     }
 }
 
@@ -195,38 +197,12 @@
     $position: relative,
     $radius: 0
 ) {
-    position: $position;
 
     @include border-radius($radius);
 
-    &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        box-sizing: border-box;
-        transform-origin: top left;
+    position: $position;
 
-        @media only screen and (-webkit-device-pixel-ratio: 2) {
-            width: 200%;
-            height: 200%;
-
-            @include border-radius($radius, 2);
-
-            -webkit-transform: scale(.5, .5);
-                    transform: scale(.5, .5);
-        }
-
-        @media only screen and (-webkit-device-pixel-ratio: 3) {
-            width: 300%;
-            height: 300%;
-
-            @include border-radius($radius, 3);
-
-            -webkit-transform: scale(.333333333333, .333333333333);
-                    transform: scale(.333333333333, .333333333333);
-        }
+    &::after {
 
         @if $direction == all {
             border: $size solid $color;
@@ -235,8 +211,36 @@
             @for $i from 1 through length($direction) {
                 $item: nth($direction, $i);
 
-                border-#{$item}: getBorderItemValue($size, $i) solid getBorderItemValue($color, $i);
+                border-#{$item}: getborderitemvalue($size, $i) solid getborderitemvalue($color, $i);
             }
+        }
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        content: "";
+        box-sizing: border-box;
+        transform-origin: top left;
+
+        @media only screen and (-webkit-device-pixel-ratio: 2) {
+
+            @include border-radius($radius, 2);
+
+            width: 200%;
+            height: 200%;
+            -webkit-transform: scale(.5, .5);
+                    transform: scale(.5, .5);
+        }
+
+        @media only screen and (-webkit-device-pixel-ratio: 3) {
+
+            @include border-radius($radius, 3);
+
+            width: 300%;
+            height: 300%;
+            -webkit-transform: scale(.333333333333, .333333333333);
+                    transform: scale(.333333333333, .333333333333);
         }
     }
 }

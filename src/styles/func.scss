@@ -49,36 +49,45 @@
 * @description flex布局垂直水平居中
  */
 @mixin flex-center($args...) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   @each $key, $value in meta.keywords($args) {
     & {
       #{$key}: $value;
     }
   }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /**
 * @description 多行文本省略号
  */
 @mixin text-ellipsis($line: 1) {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: $line;
-  overflow: hidden;
   @if ($line == 1) {
     word-break: break-all;
     text-overflow: ellipsis;
   }
+
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
 }
+
 /**
 * @description 三角气泡框
  */
 @mixin popover($placement, $args...) {
+
+  @each $key, $value in meta.keywords($args) {
+    &::after {
+      #{$key}: $value;
+    }
+  }
+
   &::after {
-    content: '';
     position: absolute;
     width: 0;
     height: 0;
@@ -86,12 +95,7 @@
     border-color: transparent;
     border-style: solid;
     border-width: 6px;
-  }
-
-  @each $key, $value in meta.keywords($args) {
-    &::after {
-      #{$key}: $value;
-    }
+    content: '';
   }
 
   &::after {

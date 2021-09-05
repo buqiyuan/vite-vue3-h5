@@ -26,8 +26,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     esbuild: {
       // target: 'es2015'
     },
-    alias: {
-      '@': resolve(__dirname, './src')
+    resolve: {
+      alias: [
+        {
+          find: '@',
+          replacement: resolve(__dirname, './src')
+        }
+      ]
     },
     plugins: [
       vue(),
