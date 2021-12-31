@@ -1,4 +1,4 @@
-@use "sass:meta";
+@use 'sass:meta';
 
 @function rpx($value) {
   @return $value * 1rpx;
@@ -49,7 +49,6 @@
 * @description flex布局垂直水平居中
  */
 @mixin flex-center($args...) {
-
   @each $key, $value in meta.keywords($args) {
     & {
       #{$key}: $value;
@@ -80,7 +79,6 @@
 * @description 三角气泡框
  */
 @mixin popover($placement, $args...) {
-
   @each $key, $value in meta.keywords($args) {
     &::after {
       #{$key}: $value;

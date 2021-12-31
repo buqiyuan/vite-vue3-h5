@@ -1,7 +1,7 @@
-import { App } from 'vue'
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { createRouterGuards } from './routerGuards'
-import { main } from './modules/main'
+import { App } from 'vue';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { createRouterGuards } from './routerGuards';
+import { main } from './modules/main';
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -10,21 +10,21 @@ export const routes: Array<RouteRecordRaw> = [
     redirect: '/home',
     component: () => import('@/layout/index.vue'),
     meta: {
-      title: '首页'
+      title: '首页',
     },
-    children: [...main]
-  }
-]
+    children: [...main],
+  },
+];
 
 const router = createRouter({
   // process.env.BASE_URL
   history: createWebHashHistory(''),
-  routes
-})
+  routes,
+});
 
 export function setupRouter(app: App) {
-  app.use(router)
+  app.use(router);
   // 创建路由守卫
-  createRouterGuards(router)
+  createRouterGuards(router);
 }
-export default router
+export default router;

@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 
 export const main: Array<RouteRecordRaw> = [
   {
@@ -7,8 +7,8 @@ export const main: Array<RouteRecordRaw> = [
     component: () => import('@/views/home/index.vue'),
     meta: {
       title: '首页',
-      icon: 'home-o'
-    }
+      icon: 'home-o',
+    },
   },
   {
     path: '/category',
@@ -16,7 +16,7 @@ export const main: Array<RouteRecordRaw> = [
     component: () => import('@/views/category/index.vue'),
     meta: {
       title: '分类',
-      icon: 'apps-o'
-    }
-  }
-]
+      icon: 'apps-o',
+    },
+  },
+];

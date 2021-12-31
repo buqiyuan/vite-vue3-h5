@@ -9,41 +9,41 @@
     // 需要限制的最大宽度
     defaultMaxWidth = 540,
     // 计算的基准值
-    calcMaxWidth = 9999999
+    calcMaxWidth = 9999999;
 
   if (!metaElem) {
-    metaElem = initMetaViewport()
+    metaElem = initMetaViewport();
   }
 
   if (metaElem.getAttribute('data-content-max') !== null) {
-    calcMaxWidth = defaultMaxWidth
+    calcMaxWidth = defaultMaxWidth;
   }
 
   // 确保meta[name="viewport"]存在
   function initMetaViewport() {
-    var meta = document.createElement('meta')
+    var meta = document.createElement('meta');
 
-    meta.setAttribute('name', 'viewport')
-    meta.setAttribute('content', 'width=device-width,initial-scale=1,user-scalable=no')
-    document.head.appendChild(meta)
+    meta.setAttribute('name', 'viewport');
+    meta.setAttribute('content', 'width=device-width,initial-scale=1,user-scalable=no');
+    document.head.appendChild(meta);
 
-    return meta
+    return meta;
   }
 
   // 大部分dpr为2以下的安卓机型不识别scale，需设置不缩放
   if (navigator.appVersion.match(/android/gi) && dpr <= 2) {
-    dpr = 1
+    dpr = 1;
   }
 
-  setScale(dpr)
+  setScale(dpr);
 
   // 企业QQ设置了scale后，不能完全识别scale（此时clientWidth未收到缩放的影响而翻倍），需设置不缩放
   if (navigator.appVersion.match(/qq\//gi) && docElem.clientWidth <= 360) {
-    dpr = 1
-    setScale(dpr)
+    dpr = 1;
+    setScale(dpr);
   }
 
-  docElem.setAttribute('data-dpr', dpr)
+  docElem.setAttribute('data-dpr', dpr);
 
   // 设置缩放
   function setScale(dpr) {
@@ -55,29 +55,29 @@
         1 / dpr +
         ',minimum-scale=' +
         1 / dpr +
-        ',user-scalable=no'
-    )
+        ',user-scalable=no',
+    );
   }
 
   // 设置docElem字体大小
   function setFontSize() {
-    var clientWidth = docElem.clientWidth
+    var clientWidth = docElem.clientWidth;
 
-    clientWidth = Math.max(clientWidth, defaultMinWidth * dpr)
+    clientWidth = Math.max(clientWidth, defaultMinWidth * dpr);
 
     // 调整计算基准值
     if (calcMaxWidth === defaultMaxWidth) {
-      clientWidth = Math.min(clientWidth, defaultMaxWidth * dpr)
+      clientWidth = Math.min(clientWidth, defaultMaxWidth * dpr);
     }
 
-    docElem.style.fontSize = clientWidth / blocks + 'px'
+    docElem.style.fontSize = clientWidth / blocks + 'px';
   }
 
-  setFontSize()
+  setFontSize();
 
   window.addEventListener(
     window.orientationchange ? 'orientationchange' : 'resize',
     setFontSize,
-    false
-  )
-})()
+    false,
+  );
+})();

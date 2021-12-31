@@ -30,32 +30,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { navList } from './navList'
+  import { defineComponent } from 'vue';
+  import { navList } from './navList';
 
-export default defineComponent({
-  name: 'Home',
-  setup() {
-    const images = [
-      'https://img.yzcdn.cn/vant/apple-1.jpg',
-      'https://img.yzcdn.cn/vant/apple-2.jpg'
-    ]
-    return {
-      images,
-      navList
-    }
-  }
-})
+  export default defineComponent({
+    name: 'Home',
+    setup() {
+      const images = [
+        'https://img.yzcdn.cn/vant/apple-1.jpg',
+        'https://img.yzcdn.cn/vant/apple-2.jpg',
+      ];
+      return {
+        images,
+        navList,
+      };
+    },
+  });
 </script>
 
 <style lang="scss" scoped>
-.van-swipe img {
-  display: block;
-  width: 100%;
-  height: px2rem(480);
-  padding: 30px 60px;
-  pointer-events: none;
-  background-color: #fff;
-  box-sizing: border-box;
-}
+  .van-swipe img {
+    display: block;
+    width: 100%;
+    height: px2rem(480);
+    padding: 30px 60px;
+    pointer-events: none;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
 </style>

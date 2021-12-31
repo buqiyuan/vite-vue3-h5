@@ -1,147 +1,146 @@
 @charset "UTF-8";
 
-@import "./util";
+@import './util';
 
 .f-p-0 {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 html,
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 html {
-    @include root-width();
+  @include root-width();
 }
 
 body {
-    font-family: "Microsoft YaHei";
-    font-size: px2rem(28);
-    background-color: #f8f8f8;
+  font-family: 'Microsoft YaHei';
+  font-size: px2rem(28);
+  background-color: #f8f8f8;
 
-    /* rem2px的使用方式，仅用于临时计算 */
-    border-width: rem2px(0.6);
+  /* rem2px的使用方式，仅用于临时计算 */
+  border-width: rem2px(0.6);
 }
 
 .container {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 header {
-    height: px2rem(300);
-    line-height: px2rem(300);
-    text-align: center;
-    background-color: #f2f2f2;
+  height: px2rem(300);
+  line-height: px2rem(300);
+  text-align: center;
+  background-color: #f2f2f2;
 }
 
 nav ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+
+  li {
     display: flex;
-    justify-content: space-around;
-    padding: 0;
+    flex-wrap: wrap;
+    width: px2rem(200);
+    justify-content: center;
+  }
 
-    li {
-        display: flex;
-        flex-wrap: wrap;
-        width: px2rem(200);
-        justify-content: center;
-    }
-
-    .icon {
-        width: px2rem(120);
-        height: px2rem(120);
-        margin-bottom: px2rem(20);
-        line-height: px2rem(120);
-        text-align: center;
-        background-color: #f2f2f2;
-    }
+  .icon {
+    width: px2rem(120);
+    height: px2rem(120);
+    margin-bottom: px2rem(20);
+    line-height: px2rem(120);
+    text-align: center;
+    background-color: #f2f2f2;
+  }
 }
 
 main {
-    padding: px2rem(20);
+  padding: px2rem(20);
 
-    h3 {
-        position: relative;
-        margin-top: px2rem(50);
-        margin-left: px2rem(26);
-        font-size: px2rem(30);
+  h3 {
+    position: relative;
+    margin-top: px2rem(50);
+    margin-left: px2rem(26);
+    font-size: px2rem(30);
 
-        /* 字体也可以选择不使用rem
+    /* 字体也可以选择不使用rem
             @include font-size(30px);
         */
 
-        &::before {
-            position: absolute;
-            left: px2rem(-20);
-            width: px2rem(12);
-            height: 100%;
-            background-color: #fc8200;
-            content: "";
-        }
+    &::before {
+      position: absolute;
+      left: px2rem(-20);
+      width: px2rem(12);
+      height: 100%;
+      background-color: #fc8200;
+      content: '';
     }
+  }
 }
 
 .info-items {
-    margin-top: px2rem(20);
-    margin-bottom: px2rem(20);
+  margin-top: px2rem(20);
+  margin-bottom: px2rem(20);
 }
 
 .info-item {
-    display: flex;
-    padding: px2rem(30);
-    padding-left: 0;
-    margin-top: px2rem(20);
-    border: 1px solid #ddd;
+  display: flex;
+  padding: px2rem(30);
+  padding-left: 0;
+  margin-top: px2rem(20);
+  border: 1px solid #ddd;
 
-    span {
-        min-width: px2rem(120);
-        text-align: center;
-        border-right: 1px solid #ddd;
-    }
+  span {
+    min-width: px2rem(120);
+    text-align: center;
+    border-right: 1px solid #ddd;
+  }
 
-    input {
-        width: 100%;
-        font-size: px2rem(28);
-        border: none;
-        outline: none;
-        caret-color: #fc8200;
-    }
+  input {
+    width: 100%;
+    font-size: px2rem(28);
+    border: none;
+    outline: none;
+    caret-color: #fc8200;
+  }
 
-    textarea {
-        width: 100%;
-        height: px2rem(250);
-        padding: px2rem(20);
-        font-family: "Microsoft YaHei";
-        font-size: px2rem(28);
-        -webkit-text-size-adjust: none;
-        text-size-adjust: none;
-        border: none;
-        caret-color: #fc8200;
-    }
+  textarea {
+    width: 100%;
+    height: px2rem(250);
+    padding: px2rem(20);
+    font-family: 'Microsoft YaHei';
+    font-size: px2rem(28);
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    border: none;
+    caret-color: #fc8200;
+  }
 }
 
 .info-confirm {
-    margin-bottom: px2rem(40);
+  margin-bottom: px2rem(40);
+  text-align: center;
+
+  &__btn {
+    display: inline-block;
+    width: px2rem(200);
+    height: px2rem(80);
+    margin-top: px2rem(80);
+    line-height: px2rem(80);
+    color: #fff !important;
     text-align: center;
-
-    &__btn {
-        display: inline-block;
-        width: px2rem(200);
-        height: px2rem(80);
-        margin-top: px2rem(80);
-        line-height: px2rem(80);
-        color: #fff !important;
-        text-align: center;
-        text-decoration: none !important;
-        background-color: #fc8200;
-
-    }
+    text-decoration: none !important;
+    background-color: #fc8200;
+  }
 }
 
 footer {
-    height: px2rem(150);
-    line-height: px2rem(150);
-    text-align: center;
-    background-color: #f2f2f2;
+  height: px2rem(150);
+  line-height: px2rem(150);
+  text-align: center;
+  background-color: #f2f2f2;
 }

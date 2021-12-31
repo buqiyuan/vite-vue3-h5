@@ -3,7 +3,7 @@
  */
 export enum ResultEnum {
   SUCCESS = 0,
-  ERROR = 7
+  ERROR = 7,
 }
 
 /**
@@ -14,7 +14,7 @@ export enum RequestEnum {
   POST = 'POST',
   PATCH = 'PATCH',
   PUT = 'PUT',
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
 }
 
 /**
@@ -28,5 +28,5 @@ export enum ContentTypeEnum {
   // form-data 一般配合qs
   FORM_URLENCODED = 'application/x-www-form-urlencoded;charset=UTF-8',
   // form-data  上传
-  FORM_DATA = 'multipart/form-data;charset=UTF-8'
+  FORM_DATA = 'multipart/form-data;charset=UTF-8',
 }

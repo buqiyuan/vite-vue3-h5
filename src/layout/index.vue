@@ -22,37 +22,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick } from 'vue'
-import { main } from '@/router/modules/main'
-import { Sticky, Tabbar } from 'vant'
+  import { defineComponent, ref, nextTick } from 'vue';
+  import { main } from '@/router/modules/main';
+  import { Sticky, Tabbar } from 'vant';
 
-export default defineComponent({
-  setup() {
-    const stickyRef = ref<InstanceType<typeof Sticky>>()
-    const tabbarRef = ref<InstanceType<typeof Tabbar>>()
-    const containerHeight = ref('')
+  export default defineComponent({
+    setup() {
+      const stickyRef = ref<InstanceType<typeof Sticky>>();
+      const tabbarRef = ref<InstanceType<typeof Tabbar>>();
+      const containerHeight = ref('');
 
-    nextTick(() => {
-      containerHeight.value =
-        stickyRef.value?.$el?.offsetHeight + tabbarRef.value?.$el.offsetHeight + 'px'
-    })
+      nextTick(() => {
+        containerHeight.value =
+          stickyRef.value?.$el?.offsetHeight + tabbarRef.value?.$el.offsetHeight + 'px';
+      });
 
-    return {
-      main,
-      stickyRef,
-      tabbarRef,
-      containerHeight
-    }
-  }
-})
+      return {
+        main,
+        stickyRef,
+        tabbarRef,
+        containerHeight,
+      };
+    },
+  });
 </script>
 
 <style lang="scss">
-.container {
-  --height: v-bind('containerHeight');
-  --container-height: calc(100vh - var(--height));
+  .container {
+    --height: v-bind('containerHeight');
+    --container-height: calc(100vh - var(--height));
 
-  height: calc(100vh - var(--height));
-  overflow: auto;
-}
+    height: calc(100vh - var(--height));
+    overflow: auto;
+  }
 </style>

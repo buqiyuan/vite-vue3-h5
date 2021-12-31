@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import { setupPlugins } from './plugins'
-import { setupStore } from './store'
-import { setupRouter } from './router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { setupPlugins } from './plugins';
+import { setupStore } from './store';
+import { setupRouter } from './router';
 
-const app = createApp(App)
+const app = createApp(App);
 
 // if (import.meta.env.PROD) {
 //   import('vconsole').then((res) => {
@@ -13,10 +13,10 @@ const app = createApp(App)
 // }
 
 // 安装插件（vant-ui等）,若使用了 vite-plugin-components 插件，则需要手动引入组件
-setupPlugins(app)
+setupPlugins(app);
 // 安装vuex
-setupStore(app)
+setupStore(app);
 // 安装router
-setupRouter(app)
+setupRouter(app);
 
-app.mount('#app')
+app.mount('#app');

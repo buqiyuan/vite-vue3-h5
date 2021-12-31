@@ -8,16 +8,15 @@
  * @return {string}                 项值
  */
 @function getBorderItemValue($item, $index) {
-    @if (type-of($item) == list) {
-        @if ($index > length($item)) {
-            $index: 1;
-        }
+  @if (type-of($item) == list) {
+    @if ($index > length($item)) {
+      $index: 1;
+    }
 
-        @return nth($item, $index);
-    }
-    @else {
-        @return $item;
-    }
+    @return nth($item, $index);
+  } @else {
+    @return $item;
+  }
 }
 
 /**
@@ -26,7 +25,7 @@
  * @return {boolean}        是否为百分比
  */
 @function is-percentage($value) {
-    @return type-of($value) == number and unit($value) == '%';
+  @return type-of($value) == number and unit($value) == '%';
 }
 
 /**
@@ -35,34 +34,34 @@
  * @param  {number}      $ratio  设备像素比
  */
 @mixin border-radius($radius: 0, $ratio: 1) {
-    $border-radius-corner: (top-left, top-right, bottom-right, bottom-left);
+  $border-radius-corner: (top-left, top-right, bottom-right, bottom-left);
 
-    /* 列表 按照四个角的顺序匹配 */
-    @if (type-of($radius) == list) {
-        @for $i from 1 through length($radius) {
-            $item: nth($radius, $i);
-            $corner: nth($border-radius-corner, $i);
+  /* 列表 按照四个角的顺序匹配 */
+  @if (type-of($radius) == list) {
+    @for $i from 1 through length($radius) {
+      $item: nth($radius, $i);
+      $corner: nth($border-radius-corner, $i);
 
-            /* 普通设备，或者为百分比则直接使用圆角值 */
-            @if $ratio == 1 or is-percentage($item) {
-                border-#{$corner}-radius: $item;
-            }
+      /* 普通设备，或者为百分比则直接使用圆角值 */
+      @if $ratio == 1 or is-percentage($item) {
+        border-#{$corner}-radius: $item;
+      }
 
-            /* 否则翻$ratio倍 */
-            @else {
-                border-#{$corner}-radius: $item * $ratio;
-            }
-        }
+      /* 否则翻$ratio倍 */
+      @else {
+        border-#{$corner}-radius: $item * $ratio;
+      }
     }
+  }
 
-    /* 单个值 */
-    @else {
-        @if $ratio == 1 or is-percentage($radius) {
-            border-radius: $radius;
-        } @else {
-            border-radius: $radius * $ratio;
-        }
+  /* 单个值 */
+  @else {
+    @if $ratio == 1 or is-percentage($radius) {
+      border-radius: $radius;
+    } @else {
+      border-radius: $radius * $ratio;
     }
+  }
 }
 
 /**
@@ -75,172 +74,157 @@
  * @param  {string}      $radius:    0             边框圆角
  */
 @mixin border(
-    $direction: all,
-    $size: 1px,
-    $style: solid,
-    $color: #ddd,
-    $position: relative,
-    $radius: 0
+  $direction: all,
+  $size: 1px,
+  $style: solid,
+  $color: #ddd,
+  $position: relative,
+  $radius: 0
 ) {
-    /* 多个边框 */
-    @if $direction == all or type-of($direction) == list {
-        /* 普通设备 */
-        @media not screen and (-webkit-min-device-pixel-ratio: 2) {
-            @include border-radius($radius);
+  /* 多个边框 */
+  @if $direction == all or type-of($direction) == list {
+    /* 普通设备 */
+    @media not screen and (-webkit-min-device-pixel-ratio: 2) {
+      @include border-radius($radius);
 
-            @if $direction == all {
-                border: $size $style $color;
-            }
-            @else {
-                @for $i from 1 through length($direction) {
-                    $item: nth($direction, $i);
+      @if $direction == all {
+        border: $size $style $color;
+      } @else {
+        @for $i from 1 through length($direction) {
+          $item: nth($direction, $i);
 
-                    border-#{$item}: getborderitemvalue($size, $i) getborderitemvalue($style, $i) getborderitemvalue($color, $i);
-                }
-            }
+          border-#{$item}: getborderitemvalue($size, $i)
+            getborderitemvalue($style, $i)
+            getborderitemvalue($color, $i);
         }
-
-        /* 高清设备 */
-        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-            @include border-multiple(
-                $direction: $direction,
-                $size: $size,
-                $color: $color,
-                $position: $position,
-                $radius: $radius
-            );
-        }
+      }
     }
 
-    /* 单个边框 */
-    @else {
-        /* 普通设备 */
-        @media not screen and (-webkit-min-device-pixel-ratio: 2) {
-            border-#{$direction}: $size $style $color;
-        }
-
-        /* 高清设备 */
-        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-            @include border-single(
-                $direction: $direction,
-                $size: $size,
-                $color: $color,
-                $position: $position
-            );
-        }
+    /* 高清设备 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      @include border-multiple(
+        $direction: $direction,
+        $size: $size,
+        $color: $color,
+        $position: $position,
+        $radius: $radius
+      );
     }
+  }
+
+  /* 单个边框 */
+  @else {
+    /* 普通设备 */
+    @media not screen and (-webkit-min-device-pixel-ratio: 2) {
+      border-#{$direction}: $size $style $color;
+    }
+
+    /* 高清设备 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      @include border-single(
+        $direction: $direction,
+        $size: $size,
+        $color: $color,
+        $position: $position
+      );
+    }
+  }
 }
 
 /* 实现1物理像素的单条边框线 */
-@mixin border-single(
-    $direction: bottom,
-    $size: 1px,
-    $color: #ddd,
-    $position: relative
-) {
-    position: $position;
+@mixin border-single($direction: bottom, $size: 1px, $color: #ddd, $position: relative) {
+  position: $position;
 
-    &::after {
-        /* 上下 */
-        @if ($direction == top or $direction == bottom) {
-            left: 0;
-            width: 100%;
-            height: $size;
+  &::after {
+    /* 上下 */
+    @if ($direction == top or $direction == bottom) {
+      left: 0;
+      width: 100%;
+      height: $size;
 
-            @media only screen and (-webkit-device-pixel-ratio: 2) {
-                -webkit-transform: scaleY(.5);
-                        transform: scaleY(.5);
-            }
+      @media only screen and (-webkit-device-pixel-ratio: 2) {
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+      }
 
-            @media only screen and (-webkit-device-pixel-ratio: 3) {
-                -webkit-transform: scaleY(.333333333333);
-                        transform: scaleY(.333333333333);
-            }
-        }
-
-        /* 左右 */
-        @else if ($direction == left or $direction == right) {
-            top: 0;
-            width: $size;
-            height: 100%;
-
-            @media only screen and (-webkit-device-pixel-ratio: 2) {
-                -webkit-transform: scaleX(.5);
-                        transform: scaleX(.5);
-            }
-
-            @media only screen and (-webkit-device-pixel-ratio: 3) {
-                -webkit-transform: scaleX(.333333333333);
-                        transform: scaleX(.333333333333);
-            }
-        }
-
-        position: absolute;
-        pointer-events: none;
-        background-color: $color;
-        content: "";
-
-        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-            -webkit-transform-origin: 0 0;
-                    transform-origin: 0 0;
-        }
-
-        #{$direction}: 0;
+      @media only screen and (-webkit-device-pixel-ratio: 3) {
+        -webkit-transform: scaleY(0.333333333333);
+        transform: scaleY(0.333333333333);
+      }
     }
+
+    /* 左右 */
+    @else if ($direction == left or $direction == right) {
+      top: 0;
+      width: $size;
+      height: 100%;
+
+      @media only screen and (-webkit-device-pixel-ratio: 2) {
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+      }
+
+      @media only screen and (-webkit-device-pixel-ratio: 3) {
+        -webkit-transform: scaleX(0.333333333333);
+        transform: scaleX(0.333333333333);
+      }
+    }
+
+    position: absolute;
+    pointer-events: none;
+    background-color: $color;
+    content: '';
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+    }
+
+    #{$direction}: 0;
+  }
 }
 
 /* 实现1物理像素的多条边框线 */
-@mixin border-multiple(
-    $direction: all,
-    $size: 1px,
-    $color: #ddd,
-    $position: relative,
-    $radius: 0
-) {
+@mixin border-multiple($direction: all, $size: 1px, $color: #ddd, $position: relative, $radius: 0) {
+  @include border-radius($radius);
 
-    @include border-radius($radius);
+  position: $position;
 
-    position: $position;
+  &::after {
+    @if $direction == all {
+      border: $size solid $color;
+    } @else {
+      @for $i from 1 through length($direction) {
+        $item: nth($direction, $i);
 
-    &::after {
-
-        @if $direction == all {
-            border: $size solid $color;
-        }
-        @else {
-            @for $i from 1 through length($direction) {
-                $item: nth($direction, $i);
-
-                border-#{$item}: getborderitemvalue($size, $i) solid getborderitemvalue($color, $i);
-            }
-        }
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        content: "";
-        box-sizing: border-box;
-        transform-origin: top left;
-
-        @media only screen and (-webkit-device-pixel-ratio: 2) {
-
-            @include border-radius($radius, 2);
-
-            width: 200%;
-            height: 200%;
-            -webkit-transform: scale(.5, .5);
-                    transform: scale(.5, .5);
-        }
-
-        @media only screen and (-webkit-device-pixel-ratio: 3) {
-
-            @include border-radius($radius, 3);
-
-            width: 300%;
-            height: 300%;
-            -webkit-transform: scale(.333333333333, .333333333333);
-                    transform: scale(.333333333333, .333333333333);
-        }
+        border-#{$item}: getborderitemvalue($size, $i) solid getborderitemvalue($color, $i);
+      }
     }
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    content: '';
+    box-sizing: border-box;
+    transform-origin: top left;
+
+    @media only screen and (-webkit-device-pixel-ratio: 2) {
+      @include border-radius($radius, 2);
+
+      width: 200%;
+      height: 200%;
+      -webkit-transform: scale(0.5, 0.5);
+      transform: scale(0.5, 0.5);
+    }
+
+    @media only screen and (-webkit-device-pixel-ratio: 3) {
+      @include border-radius($radius, 3);
+
+      width: 300%;
+      height: 300%;
+      -webkit-transform: scale(0.333333333333, 0.333333333333);
+      transform: scale(0.333333333333, 0.333333333333);
+    }
+  }
 }

@@ -6,7 +6,7 @@
       </template>
     </van-sidebar>
     <div class="shop-content">
-      <template v-for="cateItem in cateList[active].cate_data" :key="cateItem.title">
+      <template v-for="cateItem in cateList[active]?.cate_data" :key="cateItem.title">
         <h4 class="cate-title">{{ cateItem.title }}</h4>
         <van-grid :column-num="3" :gutter="10" :border="false">
           <template v-for="shopItem in cateItem.list" :key="shopItem.title">
@@ -22,60 +22,55 @@
   </div>
 </template>
 
-<script lang="ts">
-import { ref, watch } from 'vue'
-import { Notify } from 'vant'
-import cateList from './cateList.json'
+<script setup lang="ts">
+  import { ref, watch, onMounted } from 'vue';
+  import { Notify } from 'vant';
+  import { getCateList } from '@/api/demo';
 
-console.log(cateList, '分类数据')
+  const cateList = ref<any[]>([]);
 
-export default {
-  name: 'Category',
-  setup() {
-    const active = ref(0)
+  onMounted(async () => {
+    const { data } = await getCateList();
+    cateList.value = data;
+    console.log(data, '分类数据');
+  });
 
-    watch(
-      () => active.value,
-      () => (document.querySelector('.shop-content').scrollTop = 0)
-    )
+  const active = ref(0);
 
-    const nav2shop = (title) => {
-      Notify({ type: 'success', message: title })
-    }
+  watch(
+    () => active.value,
+    () => (document.querySelector('.shop-content').scrollTop = 0),
+  );
 
-    return {
-      active,
-      cateList,
-      nav2shop
-    }
-  }
-}
+  const nav2shop = (title) => {
+    Notify({ type: 'success', message: title });
+  };
 </script>
 
 <style lang="scss" scoped>
-.cate-container {
-  display: flex;
+  .cate-container {
+    display: flex;
 
-  .sidebar {
-    height: var(--container-height);
-    overflow-y: auto;
-  }
-
-  ::v-deep(.shop-content) {
-    flex: 1;
-    height: var(--container-height);
-    overflow-y: auto;
-
-    .cate-title {
-      padding-left: px2rem(20);
-      font-size: px2rem(32);
+    .sidebar {
+      height: var(--container-height);
+      overflow-y: auto;
     }
 
-    .van-grid-item__icon {
-      .van-icon__image {
-        font-size: px2rem(120);
+    ::v-deep(.shop-content) {
+      flex: 1;
+      height: var(--container-height);
+      overflow-y: auto;
+
+      .cate-title {
+        padding-left: px2rem(20);
+        font-size: px2rem(32);
+      }
+
+      .van-grid-item__icon {
+        .van-icon__image {
+          font-size: px2rem(120);
+        }
       }
     }
   }
-}
 </style>

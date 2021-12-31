@@ -1,6 +1,6 @@
-import { App } from 'vue'
+import { App } from 'vue';
 // import 'vant/lib/index.css';
-import '@vant/touch-emulator' // 桌面端touch适配
+import '@vant/touch-emulator'; // 桌面端touch适配
 import {
   Button,
   List,
@@ -16,8 +16,8 @@ import {
   Sticky,
   Card,
   Sidebar,
-  SidebarItem
-} from 'vant'
+  SidebarItem,
+} from 'vant';
 
 const plugins = [
   Button,
@@ -34,14 +34,14 @@ const plugins = [
   Sticky,
   Card,
   Sidebar,
-  SidebarItem
-]
+  SidebarItem,
+];
 
 export const vantPlugins = {
   install: function (app: App) {
     plugins.forEach((item) => {
       // app.component(item.name, item);
-      app.use(item)
-    })
-  }
-}
+      app.use(item);
+    });
+  },
+};
