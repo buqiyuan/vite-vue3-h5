@@ -80,6 +80,21 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                        @import "src/styles/func.scss";`,
         },
       },
+      // TODO 构建包含@charset问题 https://github.com/vitejs/vite/issues/5833
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove();
+                }
+              },
+            },
+          },
+        ],
+      },
     },
     server: {
       port: 8888,
