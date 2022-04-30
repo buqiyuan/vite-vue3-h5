@@ -12,7 +12,17 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '首页',
     },
-    children: [...main],
+    children: [
+      ...main,
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        meta: {
+          title: 'NotFound',
+        },
+        redirect: '/',
+      },
+    ],
   },
 ];
 

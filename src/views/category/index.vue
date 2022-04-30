@@ -5,7 +5,7 @@
         <van-sidebar-item :title="item.cate_title" />
       </template>
     </van-sidebar>
-    <div class="shop-content">
+    <div ref="shopContentRef" class="shop-content">
       <template v-for="cateItem in cateList[active]?.cate_data" :key="cateItem.title">
         <h4 class="cate-title">{{ cateItem.title }}</h4>
         <van-grid :column-num="3" :gutter="10" :border="false">
@@ -28,6 +28,8 @@
   import { getCateList } from '@/api/demo';
 
   const cateList = ref<any[]>([]);
+  const active = ref(0);
+  const shopContentRef = ref<HTMLDivElement>();
 
   onMounted(async () => {
     const { data } = await getCateList();
@@ -35,11 +37,9 @@
     console.log(data, '分类数据');
   });
 
-  const active = ref(0);
-
   watch(
     () => active.value,
-    () => (document.querySelector('.shop-content').scrollTop = 0),
+    () => (shopContentRef.value!.scrollTop = 0),
   );
 
   const nav2shop = (title) => {
