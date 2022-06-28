@@ -10,40 +10,36 @@
     </van-nav-bar>
   </van-sticky>
   <div class="container">
-    <router-view />
+    <router-view #="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
   <van-tabbar ref="tabbarRef" route>
     <template v-for="item in main" :key="item.name">
-      <van-tabbar-item :to="item.path" :icon="item.meta?.icon">{{
-        item.meta?.title
-      }}</van-tabbar-item>
+      <van-tabbar-item :to="item.path" :icon="item.meta?.icon">
+        {{ item.meta?.title }}
+      </van-tabbar-item>
     </template>
   </van-tabbar>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, nextTick } from 'vue';
-  import { main } from '@/router/modules/main';
+<script lang="ts" setup>
+  import { ref, nextTick } from 'vue';
   import { Sticky, Tabbar } from 'vant';
+  import { main } from '@/router/modules/main';
 
-  export default defineComponent({
-    setup() {
-      const stickyRef = ref<InstanceType<typeof Sticky>>();
-      const tabbarRef = ref<InstanceType<typeof Tabbar>>();
-      const containerHeight = ref('');
+  defineOptions({ name: 'Layout' });
 
-      nextTick(() => {
-        containerHeight.value =
-          stickyRef.value?.$el?.offsetHeight + tabbarRef.value?.$el.offsetHeight + 'px';
-      });
+  const stickyRef = ref<InstanceType<typeof Sticky>>();
+  const tabbarRef = ref<InstanceType<typeof Tabbar>>();
+  const containerHeight = ref('');
 
-      return {
-        main,
-        stickyRef,
-        tabbarRef,
-        containerHeight,
-      };
-    },
+  nextTick(() => {
+    containerHeight.value = `${
+      stickyRef.value?.$el?.offsetHeight + tabbarRef.value?.$el.offsetHeight
+    }px`;
   });
 </script>
 

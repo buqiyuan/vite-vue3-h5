@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { useUserStore } from '@/store/modules/user';
 import { Toast } from 'vant';
-import router from '@/router';
 import { ContentTypeEnum } from './httpEnum';
+import { useUserStore } from '@/store/modules/user';
+import router from '@/router';
 
 // create an axios instance
 const service = axios.create({
@@ -79,7 +79,7 @@ service.interceptors.response.use(
     if (error.message?.includes('timeout')) {
       Toast('请求超时!');
     }
-    console.log('err' + error); // for debug
+    console.log(`err${error}`); // for debug
     return Promise.reject(error);
   },
 );

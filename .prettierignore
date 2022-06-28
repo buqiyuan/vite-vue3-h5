@@ -3,6 +3,8 @@
 .output.js
 /node_modules/**
 
+.yarnrc
+
 **/*.svg
 **/*.sh
 

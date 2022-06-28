@@ -29,23 +29,12 @@
   />
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { navList } from './navList';
 
-  export default defineComponent({
-    name: 'Home',
-    setup() {
-      const images = [
-        'https://img.yzcdn.cn/vant/apple-1.jpg',
-        'https://img.yzcdn.cn/vant/apple-2.jpg',
-      ];
-      return {
-        images,
-        navList,
-      };
-    },
-  });
+  defineOptions({ name: 'Home' });
+
+  const images = ['https://img.yzcdn.cn/vant/apple-1.jpg', 'https://img.yzcdn.cn/vant/apple-2.jpg'];
 </script>
 
 <style lang="scss" scoped>

@@ -1,14 +1,14 @@
-import type { UserConfig, ConfigEnv } from 'vite';
+import { resolve } from 'path';
 import { loadEnv } from 'vite';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
-// import { VantResolver } from 'unplugin-vue-components/resolvers';
-// import AutoImport from 'unplugin-auto-import/vite';
-// import Components from 'unplugin-vue-components/vite';
-import styleImport from 'vite-plugin-style-import';
+import Components from 'unplugin-vue-components/vite';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
 import { viteMockServe } from 'vite-plugin-mock';
+import DefineOptions from 'unplugin-vue-define-options/vite';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import checker from 'vite-plugin-checker';
+import type { UserConfig, ConfigEnv } from 'vite';
 
 const CWD = process.cwd();
 
@@ -33,30 +33,18 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     plugins: [
       vue(),
+      DefineOptions(), // https://github.com/sxzz/unplugin-vue-define-options
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx
       }),
       legacy({
         targets: ['defaults', 'not IE 11'],
       }),
-      // AutoImport({
-      //   resolvers: [VantResolver()],
-      // }),
-      // Components({
-      //   resolvers: [VantResolver()],
-      // }),
-      styleImport({
-        // 一、手动的按需导入，需手动import组件
-        libs: [
-          {
-            libraryName: 'vant',
-            esModule: true,
-            resolveStyle: (name) => `vant/es/${name}/style`,
-          },
-        ],
+      Components({
+        resolvers: [VantResolver()],
       }),
       viteMockServe({
-        ignore: /^\_/,
+        ignore: /^_/,
         mockPath: 'mock',
         localEnabled: !isBuild,
         prodEnabled: isBuild,
@@ -66,6 +54,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
           setupProdMockServer();
           `,
+      }),
+      // https://github.com/fi3ework/vite-plugin-checker
+      checker({
+        typescript: true,
+        // vueTsc: true,
+        eslint: {
+          lintCommand: 'eslint "./src/**/*.{.vue,ts,tsx}"', // for example, lint .ts & .tsx
+        },
       }),
     ],
     css: {

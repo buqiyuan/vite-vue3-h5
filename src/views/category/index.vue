@@ -27,6 +27,10 @@
   import { Notify } from 'vant';
   import { getCateList } from '@/api/demo';
 
+  defineOptions({
+    name: 'category',
+  });
+
   const cateList = ref<any[]>([]);
   const active = ref(0);
   const shopContentRef = ref<HTMLDivElement>();
@@ -56,7 +60,7 @@
       overflow-y: auto;
     }
 
-    ::v-deep(.shop-content) {
+    :deep(.shop-content) {
       flex: 1;
       height: var(--container-height);
       overflow-y: auto;

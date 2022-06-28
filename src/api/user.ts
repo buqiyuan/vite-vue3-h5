@@ -1,5 +1,5 @@
-import request from '@/utils/request';
 import { LoginParams, LoginResult } from './models/userModel';
+import request from '@/utils/request';
 
 enum Api {
   getUserId = '/base/appLogin', // 获取用户userid
