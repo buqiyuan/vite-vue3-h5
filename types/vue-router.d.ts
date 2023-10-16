@@ -8,7 +8,7 @@ interface Title18n {
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
     /** 标题 */
-    title: string | Title18n;
+    title: string;
     /** 当前路由是否需要权限验证 */
     isAuth?: boolean;
     /** 当前路由权限 */

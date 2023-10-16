@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { Toast } from 'vant';
+import { closeToast, showFailToast, showLoadingToast, showToast } from 'vant';
 import { ContentTypeEnum } from './httpEnum';
 import { useUserStore } from '@/store/modules/user';
 import router from '@/router';
@@ -11,7 +11,7 @@ const service = axios.create({
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
 });
-interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   hideLoading?: boolean;
 }
 
@@ -27,7 +27,7 @@ service.interceptors.request.use(
     // 不传递默认开启loading
     if (!config.hideLoading) {
       // loading
-      Toast.loading({
+      showLoadingToast({
         forbidClick: true,
       });
     }
@@ -58,7 +58,7 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   (response) => {
-    Toast.clear();
+    closeToast(true);
     const res = response.data;
     if (res.code && res.code !== 200) {
       // 登录超时,重新登录
@@ -68,7 +68,7 @@ service.interceptors.response.use(
         // })
         router.replace('/error');
       } else {
-        Toast(res.msg || '服务器访问出错了~');
+        showToast(res.msg || '服务器访问出错了~');
       }
       return Promise.reject(res || 'error');
     } else {
@@ -77,14 +77,14 @@ service.interceptors.response.use(
   },
   (error: Error) => {
     if (error.message?.includes('timeout')) {
-      Toast('请求超时!');
+      showFailToast('请求超时!');
     }
     console.log(`err${error}`); // for debug
     return Promise.reject(error);
   },
 );
 
-const request = <T = any>(config: CustomAxiosRequestConfig): Promise<BaseResponse<T>> => {
+const request = <T = any>(config: Partial<CustomAxiosRequestConfig>): Promise<BaseResponse<T>> => {
   return new Promise((resolve, reject) => {
     service
       .request<BaseResponse<T>>(config)

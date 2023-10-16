@@ -20,7 +20,7 @@
     "lib": ["dom", "esnext"],
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "types": ["node", "vite/client", "unplugin-vue-define-options"],
+    "types": ["node", "vite/client"],
     "removeComments": true,
     "paths": {
       "@/*": ["src/*"]

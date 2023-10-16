@@ -24,11 +24,11 @@
 
 <script setup lang="ts">
   import { ref, watch, onMounted } from 'vue';
-  import { Notify } from 'vant';
+  import { showNotify } from 'vant';
   import { getCateList } from '@/api/demo';
 
   defineOptions({
-    name: 'category',
+    name: 'Category',
   });
 
   const cateList = ref<any[]>([]);
@@ -47,7 +47,7 @@
   );
 
   const nav2shop = (title) => {
-    Notify({ type: 'success', message: title });
+    showNotify({ type: 'success', message: title });
   };
 </script>
 

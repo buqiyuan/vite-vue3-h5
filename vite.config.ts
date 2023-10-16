@@ -5,7 +5,6 @@ import legacy from '@vitejs/plugin-legacy';
 import Components from 'unplugin-vue-components/vite';
 import { VantResolver } from 'unplugin-vue-components/resolvers';
 import { viteMockServe } from 'vite-plugin-mock';
-import DefineOptions from 'unplugin-vue-define-options/vite';
 import vue from '@vitejs/plugin-vue';
 import checker from 'vite-plugin-checker';
 import type { UserConfig, ConfigEnv } from 'vite';
@@ -20,9 +19,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
   return {
     base: VITE_BASE_URL,
-    esbuild: {
-      // target: 'es2015'
-    },
     resolve: {
       alias: [
         {
@@ -33,7 +29,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     plugins: [
       vue(),
-      DefineOptions(), // https://github.com/sxzz/unplugin-vue-define-options
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx
       }),
@@ -58,7 +53,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       // https://github.com/fi3ework/vite-plugin-checker
       checker({
         typescript: true,
-        // vueTsc: true,
+        vueTsc: true,
         eslint: {
           lintCommand: 'eslint "./src/**/*.{.vue,ts,tsx}"', // for example, lint .ts & .tsx
         },
@@ -108,6 +103,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       exclude: ['vue-demi'],
     },
     build: {
+      minify: 'terser',
       terserOptions: {
         compress: {
           keep_infinity: true,

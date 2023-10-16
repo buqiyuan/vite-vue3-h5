@@ -3,7 +3,7 @@
  * @param pathRule eg: pathRule =  './modules/*.ts'
  */
 export const importAll = (pathRule: string) => {
-  const allModules = import.meta.globEager(pathRule);
+  const allModules = import.meta.glob<any>(pathRule, { eager: true });
   const modules = {} as any;
   Object.keys(allModules).forEach((path) => {
     const fileName = path.replace(/(.*\/)*([^.]+).*/gi, '$2');
