@@ -1,0 +1,1 @@
+import{O as e,Q as n}from"./index-e2ae0122.js";function a(a,{args:c=[],done:o,canceled:r,error:s}){if(a){const t=a.apply(null,c);e(t)?t.then((e=>{e?o():r&&r()})).catch(s||n):t?o():r&&r()}else o()}export{a as c};
