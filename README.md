@@ -1,6 +1,6 @@
 ## 移动端布局方案
 
-移动端 vant3.x + vue3.x + vite2.x + ts.4.x + REM 布局 + Viewport (VW) 布局的实例运用
+移动端 vant4.x + vue3.x + vite4.x + ts.4.x + REM 布局 + Viewport (VW) 布局的实例运用
 
 ## 在线预览
 
